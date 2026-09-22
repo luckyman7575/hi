@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개븅신 캘린더</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header>
+        <div>
+          <p class="eyebrow">SINCE DAY ONE</p>
+          <h1>개븅신 캘린더 <span>🗓️</span></h1>
+          <p class="subtitle">우리끼리 보는 일정표. 누구나 고치고, 기록은 남아요.</p>
+        </div>
+        <button id="new-event-button" class="primary" type="button">+ 약속 잡기</button>
+      </header>
+      <section class="calendar-card" aria-label="공유 캘린더">
+        <div class="calendar-toolbar">
+          <button id="previous-month" class="icon-button" type="button" aria-label="이전 달">‹</button>
+          <h2 id="month-title"></h2>
+          <button id="next-month" class="icon-button" type="button" aria-label="다음 달">›</button>
+          <button id="today-button" class="text-button" type="button">오늘</button>
+        </div>
+        <div class="weekdays" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+      </section>
+      <section class="lower-grid">
+        <section class="panel"><div class="panel-title"><h2 id="selected-date-title">일정</h2><button id="add-for-day" class="text-button" type="button">+ 추가</button></div><p id="event-load-status" class="status">일정을 불러오는 중이에요.</p><div id="day-events" class="event-list"></div></section>
+        <section class="panel history-panel"><div class="panel-title"><h2>최근 기록</h2><span>자동 저장</span></div><p id="history-status" class="status">기록을 불러오는 중이에요.</p><div id="history-list" class="history-list"></div></section>
+      </section>
+    </main>
+    <dialog id="event-dialog">
+      <form id="event-form" method="dialog">
+        <div class="dialog-heading"><h2 id="dialog-title">약속 잡기</h2><button id="close-dialog" class="icon-button" type="button" aria-label="닫기">×</button></div>
+        <input id="event-id" type="hidden" />
+        <label>약속 이름<input id="event-title" maxlength="80" placeholder="예: 성큰네에서 치맥" required /></label>
+        <div class="form-row"><label>날짜<input id="event-date" type="date" required /></label><label>시간<input id="event-time" type="time" /></label></div>
+        <label>메모<textarea id="event-note" maxlength="500" rows="4" placeholder="장소, 준비물 등을 적어 주세요."></textarea></label>
+        <div class="dialog-actions"><button id="delete-button" class="danger" type="button" hidden>삭제</button><span></span><button id="cancel-button" class="text-button" type="button">취소</button><button id="save-button" class="primary" type="submit">저장</button></div>
+        <p id="form-status" class="status" role="status"></p>
+      </form>
+    </dialog>
+    <template id="event-template"><article class="event-item"><button class="event-edit" type="button"><span class="event-time"></span><span class="event-text"><strong class="event-name"></strong><small class="event-note"></small></span><span class="edit-mark">수정</span></button></article></template>
+    <template id="history-template"><article class="history-item"><strong class="history-action"></strong><span class="history-title"></span><time class="history-date"></time></article></template>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="app.js"></script>
+  </body>
+</html>
